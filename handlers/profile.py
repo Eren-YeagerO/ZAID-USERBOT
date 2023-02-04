@@ -9,7 +9,7 @@ from time import time
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from config import SUDO_USER
+from config import SUDO_USERS as SUDO_USER
 from helpers.PyroHelpers import ReplyCheck
 
 from handlers.help import *
