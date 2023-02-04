@@ -1,4 +1,4 @@
-from pyrogram import Client, Filters
+from pyrogram import Client, filters
 
 async def get_ub_chats(
     client: Client,
