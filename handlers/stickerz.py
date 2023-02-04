@@ -4,7 +4,7 @@ import random
 from pyrogram import filters, Client
 from pyrogram.types import Message
 
-from helper.PyroHelpers import ReplyCheck
+from helpers.PyroHelpers import ReplyCheck
 from handlers.help import add_command_help
 
 sticker_data = {
