@@ -7,9 +7,9 @@ if os.path.exists("local.env"):
     load_dotenv("local.env")
 que = {}
 SUDO_USERS = list(map(int, getenv("SUDO_USERS", "1143358497").split()))
-API_ID = int(getenv("API_ID", "6435225"))
-API_HASH = getenv("API_HASH", "4e984ea35f854762dcde906dce426c2d")
-LOG_CHAT = int(getenv("LOG_CHAT", "777000"))
+API_ID = int(getenv("API_ID", "737378"))
+API_HASH = getenv("API_HASH", "123bej45")
+LOG_CHAT = int(getenv("LOG_CHAT", "-1001601632136"))
 SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", "")
 SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", "")
 SPOTIFY_USERNAME = getenv("SPOTIFY_USERNAME", "")
