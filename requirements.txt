@@ -1,5 +1,5 @@
 aiohttp
-pyrogram==1.4.15
+Pyrogram==2.0.59
 psycopg2-binary
 requests
 dnspython
