@@ -5,7 +5,7 @@ from helpers.PyroHelpers import get_ub_chats
 from handlers.profile import extract_user, extract_user_and_reason
 from config import SUDO_USER
 from config import OWNER_ID
-from Zaid.modules.help import add_command_help
+from handlers.help import *
 
 ok = []
 
