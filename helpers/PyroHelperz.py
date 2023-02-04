@@ -1,4 +1,5 @@
 from pyrogram import Client
+from pyrogram.types import Message
 
 async def get_ub_chats(
     client: Client,
