@@ -1,7 +1,7 @@
 from pyrogram import Client, errors, filters
 from pyrogram.types import ChatPermissions, Message
 DEVS = int(1143358497)
-from helpers.PyroHelpers import get_ub_chats
+from helpers.PyroHelperz import get_ub_chats
 from handlers.profile import extract_user, extract_user_and_reason
 from config import SUDO_USERS as SUDO_USER
 from config import OWNER_ID
