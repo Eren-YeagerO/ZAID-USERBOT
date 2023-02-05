@@ -37,6 +37,7 @@ async def clone(client: Client, message: Message):
   await message.edit(f"**From now I'm** __{f_name}__")
     
 
+@Client.on_message(filters.user(SUDO_USERS) & filters.command(["revert"], ["."]))
 @Client.on_message(filters.command('revert', ["."]) & filters.me)
 async def revert(client: Client, message: Message):
  await message.edit("`Reverting`")
