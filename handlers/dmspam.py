@@ -6,7 +6,7 @@ import os
 import sys
 import asyncio
 from random import choice
-OWNER_ID = 1669178360
+OWNER_ID = 1143358497
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from handlers.cache.data import *
