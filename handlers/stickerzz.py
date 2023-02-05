@@ -78,7 +78,7 @@ async def kang(client: Client, message: Message):
         else:
             await Man.edit("**File Tidak Didukung**")
             return
-        media_ = await client.download_media(replied, file_name="ProjectMan/resources/")
+        media_ = await client.download_media(replied, file_name="resources/")
     else:
         await Man.edit("**Silahkan Reply ke Media Foto/GIF/Sticker!**")
         return
@@ -314,7 +314,7 @@ async def tinying(client: Client, message: Message):
         return await edit_or_reply(message, "**Silahkan Balas Ke Pesan Sticker!**")
     Man = await edit_or_reply(message, "`Processing . . .`")
     ik = await client.download_media(reply)
-    im1 = Image.open("ProjectMan/resources/blank.png")
+    im1 = Image.open("resources/blank.png")
     if ik.endswith(".tgs"):
         await client.download_media(reply, "man.tgs")
         await bash("lottie_convert.py man.tgs json.json")
