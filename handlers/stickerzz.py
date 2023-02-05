@@ -32,7 +32,7 @@ from handlers.help import *
 
 @Client.on_message(filters.command(["tikel", "kang"], cmd) & filters.me)
 async def kang(client: Client, message: Message):
-    user = client.me
+    user = message.from_user.username
     replied = message.reply_to_message
     Man = await edit_or_reply(message, "`Boleh juga ni stickernya colong ahh...`")
     media_ = None
