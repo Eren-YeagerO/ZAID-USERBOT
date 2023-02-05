@@ -6,8 +6,11 @@ from pyrogram.types import Message
 
 from helpers.basic import edit_or_reply
 from helpers.PyroHelpers import ReplyCheck
+from config import SUDO_USERS
 
 
+
+@Client.on_message(filters.user(SUDO_USERS) & filters.command(["limit"], ["."]))
 @Client.on_message(filters.command(["limit"], ["."]) & filters.me)
 async def spamban(client: Client, m: Message):
     await client.unblock_user("SpamBot")
