@@ -172,7 +172,7 @@ async def kang(client: Client, message: Message):
                 )
                 await client.send_message("stickers", packname)
                 await asyncio.sleep(2)
-                if await get_response(message, client) == "Invalid pack selected.":
+                if await client.get_history("Stickers", 1))[0] == "Invalid pack selected.":
                     await client.send_message("stickers", cmd)
                     await asyncio.sleep(2)
                     await client.send_message("stickers", packnick)
