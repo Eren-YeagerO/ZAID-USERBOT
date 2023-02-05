@@ -247,10 +247,6 @@ async def kang(client: Client, message: Message):
             os.remove(media_)
 
 
-async def get_response(message, client):
-    return [x async for x in client.get_history("Stickers", 1)][0]
-
-
 @Client.on_message(filters.command(["packinfo", "stickerinfo"], cmd) & filters.me)
 async def packinfo(client: Client, message: Message):
     rep = await edit_or_reply(message, "`Processing...`")
