@@ -101,8 +101,8 @@ async def kang(client: Client, message: Message):
             emoji_ = "✨"
 
         u_name = message.from_user.username
-        u_name = "@" + u_name if u_name else user.first_name or user.id
-        packname = f"Sticker_u{user.id}_v{pack}"
+        u_name = "@" + u_name if u_name else user.first_name or message.from_user.id
+        packname = f"Sticker_u{message.from_user.id}_v{pack}"
         custom_packnick = f"{u_name} Sticker Pack"
         packnick = f"{custom_packnick} Vol.{pack}"
         cmd = "/newpack"
@@ -130,7 +130,7 @@ async def kang(client: Client, message: Message):
             limit = 50 if (is_video or is_anim) else 120
             if exist.set.count >= limit:
                 pack += 1
-                packname = f"a{user.id}_by_userge_{pack}"
+                packname = f"a{message.from_user.id}_by_userge_{pack}"
                 packnick = f"{custom_packnick} Vol.{pack}"
                 if is_anim:
                     packname += f"_anim{pack}"
@@ -157,7 +157,7 @@ async def kang(client: Client, message: Message):
             limit = "50" if is_anim else "120"
             while limit in await get_response(message, client):
                 pack += 1
-                packname = f"a{user.id}_by_{user.username}_{pack}"
+                packname = f"a{message.from_user.id}_by_{message.from_user.username}_{pack}"
                 packnick = f"{custom_packnick} vol.{pack}"
                 if is_anim:
                     packname += "_anim"
