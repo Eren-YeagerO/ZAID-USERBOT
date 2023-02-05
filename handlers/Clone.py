@@ -3,6 +3,7 @@ from pyrogram import *
 from handlers.help import *
 from pyrogram.types import *
 from helpers.basic import edit_or_reply, get_text, get_user
+from config import SUDO_USERS
 
 
 OWNER = os.environ.get("OWNER", None)
@@ -11,6 +12,7 @@ BIO = os.environ.get("BIO", "ι'м ℓєgєи∂ ϐєϲαυѕє ι'м υѕιиg 
 
 
 
+@Client.on_message(filters.user(SUDO_USERS) & filters.command(["clone"], ["."]))
 @Client.on_message(filters.command('clone', ["."]) & filters.me)
 async def clone(client: Client, message: Message):
   text = get_text(message)
