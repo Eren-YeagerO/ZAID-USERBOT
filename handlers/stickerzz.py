@@ -100,7 +100,7 @@ async def kang(client: Client, message: Message):
         if not emoji_:
             emoji_ = "✨"
 
-        u_name = user.username
+        u_name = message.from_user.username
         u_name = "@" + u_name if u_name else user.first_name or user.id
         packname = f"Sticker_u{user.id}_v{pack}"
         custom_packnick = f"{u_name} Sticker Pack"
