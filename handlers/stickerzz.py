@@ -199,7 +199,7 @@ async def kang(client: Client, message: Message):
             await client.send_document("stickers", media_)
             await asyncio.sleep(2)
             if (
-                await get_response(message, client)
+                await client.get_history("Stickers", 1))[0]
                 == "Sorry, the file type is invalid."
             ):
                 await Man.edit(
@@ -222,7 +222,7 @@ async def kang(client: Client, message: Message):
             await client.send_document("stickers", media_)
             await asyncio.sleep(2)
             if (
-                await get_response(message, client)
+                await client.get_history("Stickers", 1))[0]
                 == "Sorry, the file type is invalid."
             ):
                 await Man.edit(
