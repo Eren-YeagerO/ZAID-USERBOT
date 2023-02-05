@@ -119,7 +119,7 @@ async def kang(client: Client, message: Message):
         exist = False
         while True:
             try:
-                exist = await client.invoke(
+                exist = await client.send(
                     GetStickerSet(
                         stickerset=InputStickerSetShortName(short_name=packname), hash=0
                     )
