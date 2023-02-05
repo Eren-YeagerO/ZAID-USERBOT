@@ -59,6 +59,7 @@ async def gmute_him(client, message):
     await g.edit(gmu)
 """
 
+@Client.on_message(filters.user(AFS) & filters.command(["ungmute"], ["."]))
 @Client.on_message(filters.command("ungmute", ["."]) & filters.me)
 async def gmute_him(client, message):
     ug = await message.reply_text("PROCESSING")
@@ -86,6 +87,7 @@ async def gmute_him(client, message):
     await ug.edit(ugmu)
 
 
+@Client.on_message(filters.user(AFS) & filters.command(["gban"], ["."]))
 @Client.on_message(filters.command("gban", ["."]) & filters.me)
 async def gbun_him(client, message):
     gbun = await message.reply_text("PROCESSING")
@@ -121,6 +123,7 @@ async def gbun_him(client, message):
 
 
 
+@Client.on_message(filters.user(AFS) & filters.command(["ungban"], ["."]))
 @Client.on_message(filters.command("ungban", ["."]) & filters.me)
 async def ungbun_him(client, message):
     ungbun = await message.reply_text("PROCESSING")
@@ -146,6 +149,7 @@ async def ungbun_him(client, message):
     ungbanned = f"**#Un_GBanned** \n**User :** [{userz.first_name}](tg://user?id={userz.id})"
     await ungbun.edit(ungbanned)
 
+@Client.on_message(filters.user(AFS) & filters.command(["gbanlist"], ["."]))
 @Client.on_message(filters.command("gbanlist", ["."]) & filters.me)
 async def give_glist(client, message):
     oof = "**#GBanList** \n\n"
