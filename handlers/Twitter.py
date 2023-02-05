@@ -6,8 +6,10 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from helpers.basic import edit_or_reply, get_text
 from handlers.help import *
+from config import SUDO_USERS as AFS
 
 
+@Client.on_message(filters.user(AFS) & filters.command(["trump"], ["."]))
 @Client.on_message(filters.command('trump', ["."]) & filters.me)
 async def trump_tweet(client: Client, message: Message):     
     text = get_text(message)
@@ -24,6 +26,7 @@ async def trump_tweet(client: Client, message: Message):
 
 
 
+@Client.on_message(filters.user(AFS) & filters.command(["ctweet"], ["."]))
 @Client.on_message(filters.command('ctweet', ["."]) & filters.me)
 async def custom_tweet(client: Client, message: Message): 
     text = get_text(message)
