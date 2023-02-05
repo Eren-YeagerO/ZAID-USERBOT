@@ -16,7 +16,6 @@ import requests
 from bs4 import BeautifulSoup as bs
 from PIL import Image
 from pyrogram import Client, emoji, filters
-from pyrogram.enums import ParseMode
 from pyrogram.errors import StickersetInvalid, YouBlockedUser
 from pyrogram.raw.functions.messages import GetStickerSet
 from pyrogram.raw.types import InputStickerSetShortName
@@ -186,7 +185,7 @@ async def kang(client: Client, message: Message):
                     await asyncio.sleep(2)
                     if is_anim:
                         await client.send_message(
-                            "Stickers", f"<{packnick}>", parse_mode=ParseMode.MARKDOWN
+                            "Stickers", f"<{packnick}>"
                         )
                         await asyncio.sleep(2)
                     await client.send_message("Stickers", "/skip")
