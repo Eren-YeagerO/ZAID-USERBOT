@@ -8,7 +8,7 @@ asyncio
 python-dotenv
 APScheduler==3.7.0
 ptable
-opencv-python
+opencv-python-headless
 prettytable
 spotipy==2.19.0
 yourls
