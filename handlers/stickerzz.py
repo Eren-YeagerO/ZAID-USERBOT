@@ -155,7 +155,8 @@ async def kang(client: Client, message: Message):
             await client.send_message("stickers", packname)
             await asyncio.sleep(2)
             limit = "50" if is_anim else "120"
-            while limit in await client.get_history("Stickers", 1))[0]:
+            messi = (await client.get_history("Stickers", 1))[0]
+            while limit in messi.text:
                 pack += 1
                 packname = f"a{message.from_user.id}_by_{message.from_user.username}_{pack}"
                 packnick = f"{custom_packnick} vol.{pack}"
