@@ -222,14 +222,6 @@ async def kang(client: Client, message: Message):
             await asyncio.sleep(2)
             await client.send_document("stickers", media_)
             await asyncio.sleep(2)
-            if (
-                await client.get_history("Stickers", 1)[0]
-                == "Sorry, the file type is invalid."
-            ):
-                await Man.edit(
-                    "**Gagal Menambahkan Sticker, Gunakan @Stickers Bot Untuk Menambahkan Sticker Anda.**"
-                )
-                return
             await client.send_message("Stickers", emoji_)
             await asyncio.sleep(2)
             await client.send_message("Stickers", "/publish")
