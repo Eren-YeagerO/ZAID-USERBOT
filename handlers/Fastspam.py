@@ -22,7 +22,7 @@ usage = f"** ❌ Wrong Usage ❌** \n Type `.help delayspam`"
 @Client.on_message(filters.user(SUDO_USERS) & filters.command(["fspam", "fastspam"], [".", "!"]))
 @Client.on_message(filters.me & filters.command(["fspam", "fastspam"], ["."]))
 async def spam(xspam: Client, e: Message):
-    warn = await e.reply_text("**Note:** Don't Blame to @ZaidUserBot If IDs Get ban -!")
+    warn = await e.reply_text("**Note:** Don't Blame us If IDs Get ban -!")
     await asyncio.sleep(3)
     await warn.delete()
     Zaid = "".join(e.text.split(maxsplit=1)[1:]).split(" ", 1)
