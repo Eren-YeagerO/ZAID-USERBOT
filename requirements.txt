@@ -37,3 +37,4 @@ git+https://github.com/Itz-fork/py-trans.git
 gtts
 tracemoepy
 textblob
+pyRiZoeLX
