@@ -1,10 +1,8 @@
 from helpers.mongo.sudo import add_sudo, del_sudo, is_sudo, get_sudos
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from config import STUFF, DEV
+from config import DEV
 from .verify import verify
-
-hl = STUFF.COMMAND_HANDLER
 
 async def eor(m, t):
     await m.reply(t)
@@ -23,7 +21,7 @@ async def get_id(_, m):
         id = m.reply_to_message.from_user.id
     return id 
 
-@Client.on_message(filters.command(["addsudo", "rmsudo"], hl) & filters.user(DEV.OWNER_ID))
+@Client.on_message(filters.command(["addsudo", "rmsudo"], ".") & filters.user(DEV.OWNER_ID))
 async def add_or_del_sudo(_, m):
     try:
         id = await get_id(_, m)
@@ -40,7 +38,7 @@ async def add_or_del_sudo(_, m):
     await add_sudo(id)
     return await eor(m, f"<i>{id} is added to sudo...!</i>")
 
-@Client.on_message(filters.command("sudos", hl))
+@Client.on_message(filters.command("sudos", "."))
 async def sudo_users(_, m):
     if not await verify(m.from_user.id):
         return
