@@ -1,7 +1,7 @@
 from helpers.mongo.sudo import is_sudo
 from config import DEV
 
-LEGENDS = DEV.SUDO_USERS + [DEV.OWNER_ID]
+LEGENDS = DEV.OWNER_ID
 
 async def verify(id):
     if not await is_sudo(id):
