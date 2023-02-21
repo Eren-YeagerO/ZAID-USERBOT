@@ -69,3 +69,6 @@ STRING_SESSION48 = getenv("STRING_SESSION48", "")
 STRING_SESSION49 = getenv("STRING_SESSION49", "")
 STRING_SESSION50 = getenv("STRING_SESSION50", "")
 
+class DEV:
+    OWNER_ID = int(os.getenv("OWNER_ID", ""))
+
