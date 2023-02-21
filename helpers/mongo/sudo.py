@@ -1,6 +1,6 @@
-from helpers.mongo import cli as db
+from helpers.mongo import cli
 
-sudodb = db.sudo
+sudodb = cli["SUDO"]
 
 async def add_sudo(user_id: int):
     sudo = await sudodb.find_one({"user_id": user_id})
