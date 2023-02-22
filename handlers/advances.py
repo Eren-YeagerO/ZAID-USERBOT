@@ -9,7 +9,6 @@ import os
 import sys
 import asyncio
 import re
-from handlers.sudo import SUDOS
 from random import choice
 from pyrogram import Client, filters
 from pyrogram.types import Message
@@ -30,7 +29,7 @@ import os
 import sys
 
 
-@Client.on_message(filters.user(SUDOS) & filters.command(["help"], [".", "!"]))
+@Client.on_message(filters.user(SUDO_USERS) & filters.command(["help"], [".", "!"]))
 async def help(_, e: Message):
         zaid = e.text.split(" ")
         if len(zaid) > 1:
