@@ -12,7 +12,7 @@ import sys
 from re import sub
 from time import time
 
-from pyrogram import Client, enums
+from pyrogram import Client
 
 admins_in_chat = {}
 
@@ -33,7 +33,7 @@ async def list_admins(client: Client, chat_id: int):
         "data": [
             member.user.id
             async for member in client.get_chat_members(
-                chat_id, filter=enums.ChatMembersFilter.ADMINISTRATORS
+                chat_id, filter=adminstrators
             )
         ],
     }
