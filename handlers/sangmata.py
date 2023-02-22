@@ -19,7 +19,6 @@ async def sg(client: Client, message: Message):
     if not reply.text:
         await lol.edit("reply to any text message")
     chat = message.chat.id
-    try:
     await reply.forward("@SangMataInfo_bot")
     await asyncio.sleep(2)
     async for opt in client.iter_history("@SangMataInfo_bot", limit=3):
