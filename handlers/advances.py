@@ -9,7 +9,7 @@ import os
 import sys
 import asyncio
 import re
-from handlers import SUDOS
+from handlers.sudo import SUDOS
 from random import choice
 from pyrogram import Client, filters
 from pyrogram.types import Message
