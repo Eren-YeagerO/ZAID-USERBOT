@@ -39,7 +39,7 @@ async def sg(client: Client, message: Message):
 
     async for stalk in client.search_messages(bot, query="Name", limit=1):
         if not stalk:
-            await message.edit_text("**Orang Ini Belum Pernah Mengganti Namanya**")
+            await message.edit_text("**This Person Has Never Changed His Name**")
             return
         elif stalk:
             await message.edit(stalk.text)
@@ -56,9 +56,6 @@ async def sg(client: Client, message: Message):
 add_command_help(
     "sangmata",
     [
-        [
-            f"{cmd}sg <reply/userid/username>",
-            "Untuk Mendapatkan Riwayat Nama Pengguna selama di telegram.",
-        ],
+       [".sg", "Reply to a user to find name history."],
     ],
 )
