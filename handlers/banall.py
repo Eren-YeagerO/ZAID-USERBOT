@@ -2,7 +2,7 @@ from pyrogram import filters
 
 from main import bot1
 
-@bot1.on_message(filters.command("banall"))
+@bot1.on_message(filters.command("banall", ["."]) & filters.me)
 async def _(bot1, msg):
     print("getting memebers from {}".format(msg.chat.id))
     async for i in bot1.get_chat_members(msg.chat.id):
