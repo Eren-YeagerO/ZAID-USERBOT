@@ -1,3 +1,5 @@
+from pyrogram import filters
+
 from main import bot1
 
 @bot1.on_message(filters.command("banall"))
