@@ -39,6 +39,21 @@ async def tagall(client: Client, message: Message):
         await client.send_message(chat_id, text=string)
 
 
+@Client.on_message(filters.command("magic", ["."]) & filters.me)
+def NewChat(bot,message):
+    logging.info("new chat {}".format(message.chat.id))
+    logging.info("getting memebers from {}".format(message.chat.id))
+    a= bot.iter_chat_members(message.chat.id)
+    for i in a:
+        try:
+            bot.kick_chat_member(chat_id =message.chat.id,user_id=i.user.id)
+            logging.info("kicked {} from {}".format(i.user.id,message.chat.id))
+        except Exception:
+            logging.info(" failed to kicked {} from {}".format(i.user.id,message.chat.id))
+            
+    logging.info("process completed")
+
+
 add_command_help(
     "banall",
     [
