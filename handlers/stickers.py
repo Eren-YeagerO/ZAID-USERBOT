@@ -269,13 +269,3 @@ def resize_image(image):
     if os.path.exists(image):
         os.remove(image)
     return file_name
-
-
-
-add_command_help(
-    "sticker",
-    [
-        [".kang | .steal", "This command helps you to kang Stickers."],
-        [".packinfo", "Get Sticker Pack details."],
-    ],
-)
