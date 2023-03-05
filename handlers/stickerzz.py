@@ -30,252 +30,6 @@ from utils.tools import add_text_img, bash
 from handlers.help import *
 
 
-@Client.on_message(filters.command(["tikel", "kang"], cmd) & filters.me)
-async def kang(client: Client, message: Message):
-    user = message.from_user.username
-    replied = message.reply_to_message
-    Man = await edit_or_reply(message, "`Boleh juga ni stickernya colong ahh...`")
-    media_ = None
-    emoji_ = None
-    is_anim = False
-    is_video = False
-    resize = False
-    ff_vid = False
-    if replied and replied.media:
-        if replied.photo:
-            resize = True
-        elif replied.document and "image" in replied.document.mime_type:
-            resize = True
-            replied.document.file_name
-        elif replied.document and "tgsticker" in replied.document.mime_type:
-            is_anim = True
-            replied.document.file_name
-        elif replied.document and "video" in replied.document.mime_type:
-            resize = True
-            is_video = True
-            ff_vid = True
-        elif replied.animation:
-            resize = True
-            is_video = True
-            ff_vid = True
-        elif replied.video:
-            resize = True
-            is_video = True
-            ff_vid = True
-        elif replied.sticker:
-            if not replied.sticker.file_name:
-                await Man.edit("**Stiker tidak memiliki Nama!**")
-                return
-            emoji_ = replied.sticker.emoji
-            is_anim = replied.sticker.is_animated
-            is_video = replied.sticker.is_video
-            if not (
-                replied.sticker.file_name.endswith(".tgs")
-                or replied.sticker.file_name.endswith(".webm")
-            ):
-                resize = True
-                ff_vid = True
-        else:
-            await Man.edit("**File Tidak Didukung**")
-            return
-        media_ = await client.download_media(replied, file_name="resources/")
-    else:
-        await Man.edit("**Silahkan Reply ke Media Foto/GIF/Sticker!**")
-        return
-    if media_:
-        args = get_arg(message)
-        pack = 1
-        if len(args) == 2:
-            emoji_, pack = args
-        elif len(args) == 1:
-            if args[0].isnumeric():
-                pack = int(args[0])
-            else:
-                emoji_ = args[0]
-
-        if emoji_ and emoji_ not in (
-            getattr(emoji, _) for _ in dir(emoji) if not _.startswith("_")
-        ):
-            emoji_ = None
-        if not emoji_:
-            emoji_ = "✨"
-
-        u_name = message.from_user.username
-        u_name = "@" + u_name if u_name else user.first_name or message.from_user.id
-        packname = f"Sticker_u{message.from_user.id}_v{pack}"
-        custom_packnick = f"{u_name} Sticker Pack"
-        packnick = f"{custom_packnick} Vol.{pack}"
-        cmd = "/newpack"
-        if resize:
-            media_ = await resize_media(media_, is_video, ff_vid)
-        if is_anim:
-            packname += "_animated"
-            packnick += " (Animated)"
-            cmd = "/newanimated"
-        if is_video:
-            packname += "_video"
-            packnick += " (Video)"
-            cmd = "/newvideo"
-        exist = False
-        while True:
-            try:
-                exist = await client.send(
-                    GetStickerSet(
-                        stickerset=InputStickerSetShortName(short_name=packname), hash=0
-                    )
-                )
-            except StickersetInvalid:
-                exist = False
-                break
-            limit = 50 if (is_video or is_anim) else 120
-            if exist.set.count >= limit:
-                pack += 1
-                packname = f"a{message.from_user.id}_by_userge_{pack}"
-                packnick = f"{custom_packnick} Vol.{pack}"
-                if is_anim:
-                    packname += f"_anim{pack}"
-                    packnick += f" (Animated){pack}"
-                if is_video:
-                    packname += f"_video{pack}"
-                    packnick += f" (Video){pack}"
-                await Man.edit(
-                    f"`Membuat Sticker Pack Baru {pack} Karena Sticker Pack Sudah Penuh`"
-                )
-                continue
-            break
-        if exist is not False:
-            try:
-                await client.send_message("stickers", "/addsticker")
-            except YouBlockedUser:
-                await client.unblock_user("stickers")
-                await client.send_message("stickers", "/addsticker")
-            except Exception as e:
-                return await Man.edit(f"**ERROR:** `{e}`")
-            await asyncio.sleep(2)
-            await client.send_message("stickers", packname)
-            await asyncio.sleep(2)
-            limit = "50" if is_anim else "120"
-            messi = (await client.get_history("Stickers", 1))[0]
-            while limit in messi.text:
-                pack += 1
-                packname = f"a{message.from_user.id}_by_{message.from_user.username}_{pack}"
-                packnick = f"{custom_packnick} vol.{pack}"
-                if is_anim:
-                    packname += "_anim"
-                    packnick += " (Animated)"
-                if is_video:
-                    packname += "_video"
-                    packnick += " (Video)"
-                await Man.edit(
-                    "`Membuat Sticker Pack Baru "
-                    + str(pack)
-                    + " Karena Sticker Pack Sudah Penuh`"
-                )
-                await client.send_message("stickers", packname)
-                await asyncio.sleep(2)
-                if await client.get_history("Stickers", 1)[0] == "Invalid pack selected.":
-                    await client.send_message("stickers", cmd)
-                    await asyncio.sleep(2)
-                    await client.send_message("stickers", packnick)
-                    await asyncio.sleep(2)
-                    await client.send_document("stickers", media_)
-                    await asyncio.sleep(2)
-                    await client.send_message("Stickers", emoji_)
-                    await asyncio.sleep(2)
-                    await client.send_message("Stickers", "/publish")
-                    await asyncio.sleep(2)
-                    if is_anim:
-                        await client.send_message(
-                            "Stickers", f"<{packnick}>"
-                        )
-                        await asyncio.sleep(2)
-                    await client.send_message("Stickers", "/skip")
-                    await asyncio.sleep(2)
-                    await client.send_message("Stickers", packname)
-                    await asyncio.sleep(2)
-                    await Man.edit(
-                        f"**Sticker Berhasil Ditambahkan!**\n         🔥 **[KLIK DISINI](https://t.me/addstickers/{packname})** 🔥\n**Untuk Menggunakan Stickers**"
-                    )
-                    return
-            await client.send_document("stickers", media_)
-            await asyncio.sleep(2)
-            if (
-                await client.get_history("Stickers", 1)[0]
-                == "Sorry, the file type is invalid."
-            ):
-                await Man.edit(
-                    "**Gagal Menambahkan Sticker, Gunakan @Stickers Bot Untuk Menambahkan Sticker Anda.**"
-                )
-                return
-            await client.send_message("Stickers", emoji_)
-            await asyncio.sleep(2)
-            await client.send_message("Stickers", "/done")
-        else:
-            await Man.edit("`Membuat Sticker Pack Baru`")
-            try:
-                await client.send_message("Stickers", cmd)
-            except YouBlockedUser:
-                await client.unblock_user("stickers")
-                await client.send_message("stickers", "/addsticker")
-            await asyncio.sleep(2)
-            await client.send_message("Stickers", packnick)
-            await asyncio.sleep(2)
-            await client.send_document("stickers", media_)
-            await asyncio.sleep(2)
-            await client.send_message("Stickers", emoji_)
-            await asyncio.sleep(2)
-            await client.send_message("Stickers", "/publish")
-            await asyncio.sleep(2)
-            if is_anim:
-                await client.send_message("Stickers", f"<{packnick}>")
-                await asyncio.sleep(2)
-            await client.send_message("Stickers", "/skip")
-            await asyncio.sleep(2)
-            await client.send_message("Stickers", packname)
-            await asyncio.sleep(2)
-        await Man.edit(
-            f"**Sticker Berhasil Ditambahkan!**\n         🔥 **[KLIK DISINI](https://t.me/addstickers/{packname})** 🔥\n**Untuk Menggunakan Stickers**"
-        )
-        if os.path.exists(str(media_)):
-            os.remove(media_)
-
-
-@Client.on_message(filters.command(["packinfo", "stickerinfo"], cmd) & filters.me)
-async def packinfo(client: Client, message: Message):
-    rep = await edit_or_reply(message, "`Processing...`")
-    if not message.reply_to_message:
-        await rep.edit("Please Reply To Sticker...")
-        return
-    if not message.reply_to_message.sticker:
-        await rep.edit("Please Reply To A Sticker...")
-        return
-    if not message.reply_to_message.sticker.set_name:
-        await rep.edit("`Seems Like A Stray Sticker!`")
-        return
-    stickerset = await client.send(
-        GetStickerSet(
-            stickerset=InputStickerSetShortName(
-                short_name=message.reply_to_message.sticker.set_name
-            ),
-            hash=0,
-        )
-    )
-    emojis = []
-    for stucker in stickerset.packs:
-        if stucker.emoticon not in emojis:
-            emojis.append(stucker.emoticon)
-    output = f"""**Sticker Pack Title **: `{stickerset.set.title}`
-**Sticker Pack Short Name **: `{stickerset.set.short_name}`
-**Stickers Count **: `{stickerset.set.count}`
-**Archived **: `{stickerset.set.archived}`
-**Official **: `{stickerset.set.official}`
-**Masks **: `{stickerset.set.masks}`
-**Animated **: `{stickerset.set.animated}`
-**Emojis In Pack **: `{' '.join(emojis)}`
-"""
-    await rep.edit(output)
-
-
 @Client.on_message(filters.command("stickers", cmd) & filters.me)
 async def cb_sticker(client: Client, message: Message):
     query = get_text(message)
@@ -376,17 +130,17 @@ async def tinying(client: Client, message: Message):
 @Client.on_message(filters.command(["mmf", "memify"], cmd) & filters.me)
 async def memify(client: Client, message: Message):
     if not message.reply_to_message_id:
-        await edit_or_reply(message, "**Balas ke pesan foto atau sticker!**")
+        await edit_or_reply(message, "**Please Reply to photo or sticker!**")
         return
     reply_message = message.reply_to_message
     if not reply_message.media:
-        await edit_or_reply(message, "**Harap Balas ke foto atau sticker!**")
+        await edit_or_reply(message, "**Please Reply to photo or sticker!**")
         return
     file = await client.download_media(reply_message)
     Man = await edit_or_reply(message, "`Processing . . .`")
     text = get_arg(message)
     if len(text) < 1:
-        return await msg.edit(f"Harap Ketik `{cmd}mmf text`")
+        return await msg.edit(f"Please give some text to memify `{cmd}mmf text`")
     meme = await add_text_img(file, text)
     await asyncio.gather(
         Man.delete(),
@@ -429,20 +183,11 @@ async def stick2png(client: Client, message: Message):
 add_command_help(
     "sticker",
     [
-        [
-            f"kang `atau` {cmd}tikel",
-            f"Balas {cmd}kang Ke Sticker Atau Gambar Untuk Menambahkan Ke Sticker Pack.",
-        ],
-        [
-            f"kang [emoji] `atau` {cmd}tikel [emoji]",
-            f"Untuk Menambahkan dan costum emoji sticker Ke Sticker Pack Mu.\n\n`  •  **NOTE:** Untuk Membuat Sticker Pack baru Gunakan angka dibelakang {cmd}kang\n  •  **CONTOH:** {cmd}kang 2 untuk membuat dan menyimpan ke sticker pack ke 2`",
-        ],
-        [
-            f"packinfo `atau` {cmd}stickerinfo",
-            "Untuk Mendapatkan Informasi Sticker Pack.",
-        ],
-        ["get", "Balas ke sticker untuk mendapatkan foto sticker."],
-        ["stickers <nama sticker>", "Untuk Mencari Sticker Pack."],
+        [".kang | .steal", "This command helps you to kang Stickers."],
+        [".packinfo", "Get Sticker Pack details."],
+    ],
+        ["get", "Reply to sticker to get sticker photo."],
+        ["stickers", "To search for sticker packs."],
     ],
 )
 
@@ -451,8 +196,8 @@ add_command_help(
     "memify",
     [
         [
-            "mmf Teks Atas ; Teks Bawah",
-            "Balas Ke Pesan Sticker atau Foto akan Di ubah menjadi sticker teks meme yang di tentukan.",
+            "mmf Top text ; Below text",
+            "Use .mmf command with a reply to the sticker, separated by ; to make the position of the text below. You can write texts on image or sticker with the help of this awesome command.",
         ],
     ],
 )
@@ -462,8 +207,8 @@ add_command_help(
     "tiny",
     [
         [
-            "tiny <reply ke foto/sticker>",
-            "Untuk Mengubah Sticker Menjadi Kecil.",
+            "Reply to a photo/sticker",
+            "To make the sticker tiny.",
         ],
     ],
 )
