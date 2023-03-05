@@ -51,8 +51,8 @@ async def get_readable_time(seconds: int) -> str:
 
 
 async def add_text_img(image_path, text):
-    font_size = 12
-    stroke_width = 1
+    font_size = 13
+    stroke_width = 2
 
     if ";" in text:
         upper_text, lower_text = text.split(";")
