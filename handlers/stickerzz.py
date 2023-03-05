@@ -185,7 +185,6 @@ add_command_help(
     [
         [".kang | .steal", "This command helps you to kang Stickers."],
         [".packinfo", "Get Sticker Pack details."],
-    ],
         ["get", "Reply to sticker to get sticker photo."],
         ["stickers", "To search for sticker packs."],
     ],
