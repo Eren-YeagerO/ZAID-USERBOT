@@ -76,9 +76,6 @@ async def gmute_him(client, message):
     if userz.id == (await client.get_me()).id:
         await ug.edit("TF_DO_IT")
         return
-    if userz.id in AFS:
-        await ug.edit("`Sudo Users Can't Be Un-Gmutted! Remove Him And Try Again!`")
-        return
     if not await is_gmuted(userz.id):
         await ug.edit("`Un-Gmute A Non Gmutted User? Seriously? :/`")
         return
@@ -109,9 +106,6 @@ async def gbun_him(client, message):
         return
     if userz.id in devs_id:
         await g.edit("`Sadly, I Can't Do That!`")
-        return
-    if userz.id in AFS:
-        await gbun.edit("`Sudo Users Can't Be Gbanned! Remove Him And Try Again!`")
         return
     if await gban_info(userz.id):
         await gbun.edit("`Re-Gban? Seriously? :/`")
